@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo4/todo_karte.dart';
+import '../constance.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,6 +50,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<Card> cards = <Card>[
+    Card(
+      color: Colors.white,
+      margin: EdgeInsets.symmetric(
+        vertical: 14.0,
+        horizontal: 28.0,
+      ),
+      elevation: 7.0,
+      child: Text(
+        'test Karte',
+        style: TextStyle(
+          fontSize: 40.0,
+          fontFamily: 'Source Sans Pro',
+          color: Colors.teal[900],
+        ),
+      ),
+    ),
+  ];
 
   void _incrementCounter() {
     setState(() {
@@ -57,6 +77,29 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+  }
+
+  void addCard() {
+    setState(() {
+      cards.add(
+        Card(
+          color: Colors.white,
+          margin: EdgeInsets.symmetric(
+            vertical: 14.0,
+            horizontal: 28.0,
+          ),
+          elevation: 7.0,
+          child: Text(
+            'test Karte',
+            style: TextStyle(
+              fontSize: 40.0,
+              fontFamily: 'Source Sans Pro',
+              color: Colors.teal[900],
+            ),
+          ),
+        ),
+      );
     });
   }
 
@@ -104,15 +147,42 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          Container(
+            height: 75.0,
+            width: 360.0,
+            child: Todo_karte(
+              colour: Colors.black12,
+              cardChild: Row(
+                children: <Widget>[
+                  Text('MOIN'),
+                ],
+              ),
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Karte_bearbeiten_state(),
+                  ),
+                );
+              },
+            ),
+          ),
+          ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: cards.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 50.0,
+                  child: cards[index],
+                );
+              }),
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: addCard,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
   }
 }
-
-class Karte extends Card {}
