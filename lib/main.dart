@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo4/screens/karte_hinzufuegen.dart';
 import 'package:todo4/todo_karte.dart';
 import '../constance.dart';
 import 'data.dart';
@@ -54,57 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List getCardData = CardData.cardList;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Card> cards = <Card>[
-    Card(
-      color: Colors.white,
-      margin: EdgeInsets.symmetric(
-        vertical: 14.0,
-        horizontal: 28.0,
-      ),
-      elevation: 7.0,
-      child: Text(
-        'test Karte',
-        style: TextStyle(
-          fontSize: 40.0,
-          fontFamily: 'Source Sans Pro',
-          color: Colors.teal[900],
-        ),
-      ),
-    ),
-  ];
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   void addCard() {
-    setState(() {
-      cards.add(
-        Card(
-          color: Colors.white,
-          margin: EdgeInsets.symmetric(
-            vertical: 14.0,
-            horizontal: 28.0,
-          ),
-          elevation: 7.0,
-          child: Text(
-            'test Karte',
-            style: TextStyle(
-              fontSize: 40.0,
-              fontFamily: 'Source Sans Pro',
-              color: Colors.teal[900],
-            ),
-          ),
-        ),
-      );
-    });
+    setState(() {});
   }
 
   void _openDrawer() {
@@ -228,7 +180,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: addCard,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KarteHinzufuegen()),
+          );
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
