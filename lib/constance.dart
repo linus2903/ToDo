@@ -31,8 +31,10 @@ const kBodyTextStyle = TextStyle(
   fontSize: 22.2,
 );
 
-const cardChildMargin = 15.0;
-const borderRadius = 10.0;
+const cardChildMargin = 4.0;
+const borderRadius = 7.0;
+const containerheigt = 70.0;
+const containerwidth = 340.0;
 
 const kBottomContainerHeight = 70.0;
 const Color kActiveCardColour = Color(0xFF1D1E33);

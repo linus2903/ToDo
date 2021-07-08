@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo4/todo_karte.dart';
 import '../constance.dart';
+import 'data.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List getCardData = CardData.cardList;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   List<Card> cards = <Card>[
     Card(
       color: Colors.white,
@@ -103,6 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _openDrawer() {
+    _scaffoldKey.currentState!.openDrawer();
+  }
+
+  void _closeDrawer() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -112,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -119,65 +132,101 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SafeArea(
-          child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 20.0,
-            width: 350.0,
-          ),
-          Container(
-            height: 75.0,
-            width: 360.0,
-            child: Card(
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(
-                vertical: 14.0,
-                horizontal: 28.0,
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 20.0,
+              width: 350.0,
+            ),
+            // Container(
+            //   height: containerheigt,
+            //   width: containerwidth,
+            //   child: Card(
+            //     color: Colors.white,
+            //     margin: EdgeInsets.symmetric(
+            //       vertical: 14.0,
+            //       horizontal: 28.0,
+            //     ),
+            //     elevation: 7.0,
+            //     child: Text(
+            //       'test Karte',
+            //       style: TextStyle(
+            //         fontSize: 40.0,
+            //         fontFamily: 'Source Sans Pro',
+            //         color: Colors.teal[900],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Container(
+              height: containerheigt,
+              width: containerwidth,
+              child: Todo_karte(
+                colour: Colors.black12,
+                cardChild: Row(
+                  children: <Widget>[
+                    Text('MOIN'),
+                  ],
+                ),
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Karte_bearbeiten_state(),
+                    ),
+                  );
+                },
               ),
-              elevation: 7.0,
-              child: Text(
-                'test Karte',
-                style: TextStyle(
-                  fontSize: 40.0,
-                  fontFamily: 'Source Sans Pro',
-                  color: Colors.teal[900],
+            ),
+            Container(
+              child: Expanded(
+                child: ListView.builder(
+                  itemCount: getCardData.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: containerheigt,
+                      width: containerwidth,
+                      child: Todo_karte(
+                        colour: (getCardData[index])['color'],
+                        cardChild: Row(
+                          children: <Widget>[
+                            Text((getCardData[index])['text']),
+                          ],
+                        ),
+                        onPress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Karte_bearbeiten_state(),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
-          ),
-          Container(
-            height: 75.0,
-            width: 360.0,
-            child: Todo_karte(
-              colour: Colors.black12,
-              cardChild: Row(
-                children: <Widget>[
-                  Text('MOIN'),
-                ],
+          ],
+        ),
+      ),
+      //(getCardData[index])['text']
+      drawer: Drawer(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('This is the Drawer'),
+              ElevatedButton(
+                onPressed: _closeDrawer,
+                child: Text('Close Drawer'),
               ),
-              onPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Karte_bearbeiten_state(),
-                  ),
-                );
-              },
-            ),
+            ],
           ),
-          ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: cards.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: 50.0,
-                  child: cards[index],
-                );
-              }),
-        ],
-      )),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: addCard,
         tooltip: 'Increment',
