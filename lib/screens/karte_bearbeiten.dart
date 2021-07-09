@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:todo4/data.dart';
 import 'package:todo4/main.dart';
 
-class KarteHinzufuegen extends StatefulWidget {
+class KarteBearbeiten extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return KarteHinzufuegenState();
+    return KarteBearbeitenState();
   }
 }
 
-class KarteHinzufuegenState extends State<KarteHinzufuegen> {
+class KarteBearbeitenState extends State<KarteBearbeiten> {
   final _formKey = GlobalKey<FormState>();
-  String ueberschrift = "keine Überschrift verfügbar";
+  String ueberschrift = "Überschrift nicht geändert";
+  //Todo_karte aktKarte;
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
-        title: Text("ToDo hinzufügen"),
+        title: Text("ToDo bearbeiten"),
       ),
       body: Center(
         child: Form(

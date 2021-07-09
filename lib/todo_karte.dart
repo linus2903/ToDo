@@ -23,20 +23,3 @@ class Todo_karte extends StatelessWidget {
         ));
   }
 }
-
-class Karte_bearbeiten_state extends StatefulWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Bearbeiten'),
-      ),
-    );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-}

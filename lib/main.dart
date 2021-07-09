@@ -14,17 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ToDo App',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'To-Do-Liste'),
@@ -51,19 +42,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   List getCardData = CardData.cardList;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  void addCard() {
-    setState(() {});
-  }
 
   void _openDrawer() {
     _scaffoldKey.currentState!.openDrawer();
   }
 
   void _closeDrawer() {
+    setState(() {
+      getCardData;
+    });
     Navigator.of(context).pop();
   }
 
@@ -92,26 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 20.0,
               width: 350.0,
             ),
-            // Container(
-            //   height: containerheigt,
-            //   width: containerwidth,
-            //   child: Card(
-            //     color: Colors.white,
-            //     margin: EdgeInsets.symmetric(
-            //       vertical: 14.0,
-            //       horizontal: 28.0,
-            //     ),
-            //     elevation: 7.0,
-            //     child: Text(
-            //       'test Karte',
-            //       style: TextStyle(
-            //         fontSize: 40.0,
-            //         fontFamily: 'Source Sans Pro',
-            //         color: Colors.teal[900],
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Container(
               height: containerheigt,
               width: containerwidth,
@@ -122,14 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text('MOIN'),
                   ],
                 ),
-                onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Karte_bearbeiten_state(),
-                    ),
-                  );
-                },
+                onPress: () {},
               ),
             ),
             Container(
@@ -147,14 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text((getCardData[index])['text']),
                           ],
                         ),
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Karte_bearbeiten_state(),
-                            ),
-                          );
-                        },
+                        onPress: () {},
                       ),
                     );
                   },
@@ -181,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => KarteHinzufuegen()),
           );

@@ -14,7 +14,6 @@ class CardData {
     {'text': "karte10", 'color': Colors.red, 'erledigt': false},
   ];
   //var getData = {'text': "karte1", 'color': Colors.black12, 'erledigt': false};
-  CardData() {}
 
   void addCard(String text, Color color, bool erledigt) {
     //getData.addEntries('text': text, 'color': color, 'erledigt': erledigt);
