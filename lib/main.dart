@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:todo4/screens/karte_hinzufuegen.dart';
 import 'package:todo4/todo_karte.dart';
 import '../constance.dart';
 import 'data.dart';
+import 'dart:async';
+import 'dart:io';
 
 void main() {
   runApp(MyApp());
@@ -18,13 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'To-Do-Liste'),
+      home: MyHomePage(title: 'To-Do-Liste', storage: ListStorage()),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title, required this.storage}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -36,12 +40,14 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final ListStorage storage;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   List getCardData = CardData.cardList;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -54,6 +60,22 @@ class _MyHomePageState extends State<MyHomePage> {
       getCardData;
     });
     Navigator.of(context).pop();
+  }
+  Future<File> schreibeKarte() {
+    setState(() {
+      getCardData;
+    });
+    // Write the variable as a string to the file.
+    return widget.storage.writeList(getCardData);
+  }
+  @override
+  void initState() {
+    super.initState();
+    widget.storage.readList().then((List value) {
+      setState(() {
+        getCardData = value;
+      });
+    });
   }
 
   @override
@@ -136,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          schreibeKarte();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => KarteHinzufuegen()),

@@ -69,7 +69,7 @@ class KarteBearbeitenState extends State<KarteBearbeiten> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                MyHomePage(title: "ToDoListe2"),
+                                MyHomePage(title: "ToDoListe2", storage: ListStorage()),
                           ),
                         );
                       }

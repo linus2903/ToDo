@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:todo4/data.dart';
 import 'package:todo4/main.dart';
@@ -12,6 +13,7 @@ class KarteHinzufuegen extends StatefulWidget {
 class KarteHinzufuegenState extends State<KarteHinzufuegen> {
   final _formKey = GlobalKey<FormState>();
   String ueberschrift = "keine Überschrift verfügbar";
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +66,12 @@ class KarteHinzufuegenState extends State<KarteHinzufuegen> {
                           'color': Colors.deepOrange,
                           'erledigt': false
                         });
+
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                MyHomePage(title: "ToDoListe2"),
+                                MyHomePage(title: "ToDoListe2", storage: ListStorage()),
                           ),
                         );
                       }
